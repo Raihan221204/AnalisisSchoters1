@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Analisis Pembatalan Sesi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+        }
+        .kpi-card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .stat-card {
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+        }
+        .stat-card:hover {
+            background-color: #d1e2ff;
+            transform: scale(1.05);
+        }
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 24px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 12px;
+            animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn {
+            from {opacity: 0; transform: scale(0.95);}
+            to {opacity: 1; transform: scale(1);}
+        }
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .tab-btn {
+            padding: 12px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            font-weight: 500;
+            color: #6B7280;
+            transition: all 0.2s;
+        }
+        .tab-btn:hover {
+            background-color: #F3F4F6;
+            color: #1F2937;
+        }
+        .active-tab {
+            border-bottom-color: #3B82F6;
+            color: #3B82F6;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="mb-6">
+            <h1 class="text-3xl font-bold text-gray-900">Dashboard Analisis Pembatalan Sesi</h1>
+            <p id="program-subtitle" class="text-md text-gray-600 mt-1">Program SAA (Studi Lanjut dan Akademik)</p>
+        </header>
+
+        <!-- Tabs Navigation -->
+        <div class="mb-8 flex border-b border-gray-200">
+            <button id="btn-saa" class="tab-btn active-tab">Program SAA</button>
+            <button id="btn-ia" class="tab-btn">Program IA</button>
+        </div>
+
+        <!-- SAA Dashboard Content -->
+        <div id="dashboard-saa">
+            <!-- Main Metrics Section -->
+            <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="kpi-card bg-white p-6 rounded-xl border border-gray-200">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-blue-100 text-blue-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg></div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Total Pembatalan</p>
+                            <p class="text-2xl font-bold">2,466</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="kpi-card bg-white p-6 rounded-xl border border-gray-200">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-green-100 text-green-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Bukan Pelanggaran (HB)</p>
+                            <p class="text-2xl font-bold">2,466</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2">Berdasarkan aturan H-1 (&gt;= 24 jam).</p>
+                </div>
+                <div class="kpi-card bg-white p-6 rounded-xl border border-gray-200">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-yellow-100 text-yellow-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg></div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Cancel Mepet (Skenario)</p>
+                            <p class="text-2xl font-bold">41</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2">Jika aturan diubah menjadi &lt;= 24.5 jam.</p>
+                </div>
+                <div class="kpi-card bg-white p-6 rounded-xl border border-gray-200">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-indigo-100 text-indigo-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Cancel Aman (Skenario)</p>
+                            <p class="text-2xl font-bold">2,425</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2">Jika aturan diubah menjadi > 24.5 jam.</p>
+                </div>
+            </section>
+            <!-- Charts Section -->
+            <section class="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-8">
+                <div class="lg:col-span-3 bg-white p-6 rounded-xl border border-gray-200">
+                    <h2 class="text-lg font-semibold mb-4">Grouping Alasan Pembatalan Sesi</h2>
+                    <div class="chart-container" style="height: 400px;"><canvas id="reasonsChartSAA"></canvas></div>
+                </div>
+                <div class="lg:col-span-2 bg-white p-6 rounded-xl border border-gray-200 flex flex-col">
+                    <h2 class="text-lg font-semibold mb-4">Distribusi Waktu Pembatalan dari 2466 data</h2>
+                    <div class="chart-container flex-grow" style="height: 300px;"><canvas id="timingDistributionChartSAA"></canvas></div>
+                    <div class="mt-4 text-xs text-gray-500">
+                        <p><span class="font-semibold">Paling Jauh:</span> 1494.05 jam (~62.3 hari)</p>
+                        <p><span class="font-semibold">Paling Dekat:</span> 24.01 jam (~1.0 hari)</p>
+                    </div>
+                </div>
+            </section>
+            <!-- Reason Details Section -->
+            <section class="mb-8">
+                 <div class="bg-white p-6 rounded-xl border border-gray-200">
+                    <h2 class="text-lg font-semibold mb-4">Contoh Rincian Alasan Pembatalan</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Pekerjaan Full Time <span class="font-normal text-gray-500">(52)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"Mendadak ada tugas perjalanan dinas keluar kota"</li>
+                                <li>"I will be assigned to outside Jakarta this week"</li>
+                                <li>"Meeting kantor"</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Kesalahan Jadwal/Sistem <span class="font-normal text-gray-500">(48)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"maaf aku lupa untuk untuk menutup sesi di jumat ini"</li>
+                                <li>"tabrakan schedule denngan sesi SAA di jam 19:00"</li>
+                                <li>"I truly apologise that I mistakenly made that time slot available..."</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Sakit/Kesehatan <span class="font-normal text-gray-500">(12)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"sedang sakit tenggorokan"</li>
+                                <li>"Mentor sedang sakit"</li>
+                                <li>"I have a flu and fever since this morning"</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Alasan Akademik <span class="font-normal text-gray-500">(11)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"Mentor ada jadwal ujian tanggal 6 Februari"</li>
+                                <li>"supervisor PhD tiba2 mengajukan meeting..."</li>
+                                <li>"Ada revisi jam ketersediaan mentor..."</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Pergantian Mentor <span class="font-normal text-gray-500">(11)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"Student belum memilih mentor dedicated"</li>
+                                <li>"Mohon untuk booking sesi kembali setelah mendapatkan mentor..."</li>
+                                <li>"Peninjauan kembali oleh mentor dan tim Schoters..."</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Keluarga/Pribadi <span class="font-normal text-gray-500">(10)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"Family reason"</li>
+                                <li>"acara rangkaian persiapan pernikahan"</li>
+                                <li>"Babysitter in my house is on leave..."</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Lain-lain <span class="font-normal text-gray-500">(8)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"re-schedule, sudah janjian dengan student"</li>
+                                <li>"Sesuai kesepakatan dengan student, sesi ini dicancel..."</li>
+                                <li>"Maaf, tepat pukul tersebut aku berhalangan hadir."</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Statistics Section -->
+            <section>
+                <div class="bg-white p-6 rounded-xl border border-gray-200">
+                    <h2 class="text-lg font-semibold mb-2">Statistik Waktu Pembatalan (dalam Jam)</h2>
+                    <div class="inline-flex items-center bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full mb-4 w-max">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" /></svg>
+                        Klik pada setiap kotak untuk melihat penjelasan detail
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4 text-center">
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Mean (Rata-rata)" data-explanation="Rata-rata mentor/student melakukan cancel sekitar 4–5 hari (106.9 jam) sebelum sesi."><p class="text-sm text-gray-500">Mean</p><p class="text-xl font-bold">106.86</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Standard Deviation" data-explanation="Variasi waktu pembatalan sangat tinggi (100.9 jam), menunjukkan ada yang cancel sangat mepet dan ada yang jauh-jauh hari."><p class="text-sm text-gray-500">Std Dev</p><p class="text-xl font-bold">100.92</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Minimum" data-explanation="Cancel paling dekat dilakukan hanya 24.01 jam sebelum sesi. Ini persis di batas aman dan tidak dihitung pelanggaran (karena HB menyatakan <24 jam baru pelanggaran)."><p class="text-sm text-gray-500">Min</p><p class="text-xl font-bold">24.01</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Kuartil 1 (25%)" data-explanation="Sebanyak 25% dari pembatalan dilakukan kurang dari atau sama dengan 2 hari (48.24 jam) sebelum sesi."><p class="text-sm text-gray-500">25% (Q1)</p><p class="text-xl font-bold">48.24</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Median (50%)" data-explanation="Setengah dari total pembatalan (50%) dilakukan lebih dari atau sama dengan 3.1 hari (74.49 jam) sebelum sesi."><p class="text-sm text-gray-500">50% (Median)</p><p class="text-xl font-bold">74.49</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Kuartil 3 (75%)" data-explanation="Sebanyak 75% dari pembatalan dilakukan kurang dari atau sama dengan 5.3 hari (128.71 jam) sebelum sesi."><p class="text-sm text-gray-500">75% (Q3)</p><p class="text-xl font-bold">128.71</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Maximum" data-explanation="Cancel paling jauh dilakukan sekitar 2 bulan (1494 jam atau ≈ 62 hari) sebelum sesi."><p class="text-sm text-gray-500">Max</p><p class="text-xl font-bold">1494.05</p></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- IA Dashboard Content (Hidden by default) -->
+        <div id="dashboard-ia" style="display: none;">
+             <!-- Main Metrics Section -->
+            <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="kpi-card bg-white p-6 rounded-xl border border-gray-200">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-blue-100 text-blue-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg></div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Total Pembatalan</p>
+                            <p class="text-2xl font-bold">4,347</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="kpi-card bg-white p-6 rounded-xl border border-gray-200">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-green-100 text-green-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Bukan Pelanggaran (HB)</p>
+                            <p class="text-2xl font-bold">4,347</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2">Berdasarkan aturan H-1 (&gt;= 24 jam).</p>
+                </div>
+                <div class="kpi-card bg-white p-6 rounded-xl border border-gray-200">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-yellow-100 text-yellow-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg></div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Cancel Mepet (Skenario)</p>
+                            <p class="text-2xl font-bold">59</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2">Jika aturan diubah menjadi &lt;= 24.5 jam.</p>
+                </div>
+                <div class="kpi-card bg-white p-6 rounded-xl border border-gray-200">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-indigo-100 text-indigo-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Cancel Aman (Skenario)</p>
+                            <p class="text-2xl font-bold">4,288</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2">Jika aturan diubah menjadi > 24.5 jam.</p>
+                </div>
+            </section>
+            <!-- Charts Section -->
+            <section class="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-8">
+                <div class="lg:col-span-3 bg-white p-6 rounded-xl border border-gray-200">
+                    <h2 class="text-lg font-semibold mb-4">Grouping Alasan Pembatalan Sesi</h2>
+                    <div class="chart-container" style="height: 400px;"><canvas id="reasonsChartIA"></canvas></div>
+                </div>
+                <div class="lg:col-span-2 bg-white p-6 rounded-xl border border-gray-200 flex flex-col">
+                    <h2 class="text-lg font-semibold mb-4">Distribusi Waktu Pembatalan dari 4347 data</h2>
+                    <div class="chart-container flex-grow" style="height: 300px;"><canvas id="timingDistributionChartIA"></canvas></div>
+                    <div class="mt-4 text-xs text-gray-500">
+                        <p><span class="font-semibold">Paling Jauh:</span> 2810.57 jam (~117.1 hari)</p>
+                        <p><span class="font-semibold">Paling Dekat:</span> 24.01 jam (~1.0 hari)</p>
+                    </div>
+                </div>
+            </section>
+            <!-- Reason Details Section -->
+            <section class="mb-8">
+                 <div class="bg-white p-6 rounded-xl border border-gray-200">
+                    <h2 class="text-lg font-semibold mb-4">Contoh Rincian Alasan Pembatalan</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                         <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Masalah Keluarga/Pribadi <span class="font-normal text-gray-500">(23)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"sorry have to cancel due to family occasions"</li>
+                                <li>"Family matter"</li>
+                                <li>"sorry kak, I have urgent matter this day"</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Pekerjaan Full Time <span class="font-normal text-gray-500">(17)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"...I have been assigned to take care of a big event..."</li>
+                                <li>"ada urgent meeting"</li>
+                                <li>"saya ada workshop offline dengan Schoters..."</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Alasan Akademik <span class="font-normal text-gray-500">(13)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"I need to attend an important meeting with my professors"</li>
+                                <li>"I have a sudden class at this time..."</li>
+                                <li>"student ada interview kampus"</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Sakit/Kesehatan <span class="font-normal text-gray-500">(3)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"Tutor masih recovery sakit"</li>
+                                <li>"Tutor is currently sick and needs 3-4 days of recovery"</li>
+                                <li>"reschedule ya.. saya lagi kurang enak badan"</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Statistics Section -->
+            <section>
+                <div class="bg-white p-6 rounded-xl border border-gray-200">
+                    <h2 class="text-lg font-semibold mb-2">Statistik Waktu Pembatalan (dalam Jam)</h2>
+                     <div class="inline-flex items-center bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full mb-4 w-max">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" /></svg>
+                        Klik pada setiap kotak untuk melihat penjelasan detail
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4 text-center">
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Mean (Rata-rata)" data-explanation="Rata-rata mentor/student melakukan cancel sekitar 6-7 hari (162.27 jam) sebelum sesi."><p class="text-sm text-gray-500">Mean</p><p class="text-xl font-bold">162.27</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Standard Deviation" data-explanation="Variasi waktu pembatalan sangat tinggi (232.62 jam), menunjukkan ada yang cancel sangat mepet dan ada yang jauh-jauh hari."><p class="text-sm text-gray-500">Std Dev</p><p class="text-xl font-bold">232.62</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Minimum" data-explanation="Cancel paling dekat dilakukan hanya 24.01 jam sebelum sesi, persis di batas aman."><p class="text-sm text-gray-500">Min</p><p class="text-xl font-bold">24.01</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Kuartil 1 (25%)" data-explanation="25% dari pembatalan dilakukan ≤ 2 hari (49.70 jam) sebelum sesi."><p class="text-sm text-gray-500">25% (Q1)</p><p class="text-xl font-bold">49.70</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Median (50%)" data-explanation="Setengah dari pembatalan dilakukan ≥ 3.8 hari (92.81 jam) sebelum sesi."><p class="text-sm text-gray-500">50% (Median)</p><p class="text-xl font-bold">92.82</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Kuartil 3 (75%)" data-explanation="75% dari pembatalan dilakukan ≤ 7.3 hari (174.81 jam) sebelum sesi."><p class="text-sm text-gray-500">75% (Q3)</p><p class="text-xl font-bold">174.82</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Maximum" data-explanation="Cancel paling jauh dilakukan sekitar 3.9 bulan (2810.57 jam atau ≈ 117 hari) sebelum sesi."><p class="text-sm text-gray-500">Max</p><p class="text-xl font-bold">2810.57</p></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+    <!-- Modal for Statistics Explanation -->
+    <div id="statModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 id="modalTitle" class="text-xl font-bold mb-2"></h2>
+            <p id="modalExplanation" class="text-gray-700"></p>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- TABS LOGIC ---
+            const btnSaa = document.getElementById('btn-saa');
+            const btnIa = document.getElementById('btn-ia');
+            const dashboardSaa = document.getElementById('dashboard-saa');
+            const dashboardIa = document.getElementById('dashboard-ia');
+            const programSubtitle = document.getElementById('program-subtitle');
+
+            btnSaa.addEventListener('click', () => {
+                dashboardSaa.style.display = 'block';
+                dashboardIa.style.display = 'none';
+                btnSaa.classList.add('active-tab');
+                btnIa.classList.remove('active-tab');
+                programSubtitle.textContent = 'Program SAA (Studi Lanjut dan Akademik)';
+            });
+
+            btnIa.addEventListener('click', () => {
+                dashboardSaa.style.display = 'none';
+                dashboardIa.style.display = 'block';
+                btnIa.classList.add('active-tab');
+                btnSaa.classList.remove('active-tab');
+                programSubtitle.textContent = 'Program IA (Interest Academy)';
+            });
+
+            // --- CHART DEFAULTS ---
+            const defaultChartOptions = {
+                 indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { callbacks: { label: (context) => ` ${context.dataset.label}: ${context.raw}` } }
+                    },
+                    scales: {
+                        x: { beginAtZero: true, grid: { display: true, color: 'rgba(229, 231, 235, 1)' }, ticks: { color: '#4B5563' } },
+                        y: { grid: { display: false }, ticks: { color: '#4B5563' } }
+                    }
+            };
+            const defaultDoughnutOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom', labels: { usePointStyle: true, boxWidth: 8, padding: 20, color: '#4B5563' } },
+                    tooltip: { callbacks: { label: (context) => {
+                        let label = context.label || '';
+                        if (label) label += ': ';
+                        if (context.parsed !== null) label += context.parsed.toFixed(2) + '%';
+                        return label;
+                    }}}
+                }
+            };
+
+            // --- SAA CHARTS ---
+            const reasonsCtxSAA = document.getElementById('reasonsChartSAA').getContext('2d');
+            new Chart(reasonsCtxSAA, {
+                type: 'bar',
+                data: {
+                    labels: ['Pekerjaan Full Time', 'Kesalahan Jadwal/Sistem', 'Sakit/Kesehatan', 'Alasan Akademik', 'Pergantian Mentor', 'Keluarga/Pribadi', 'Lain-lain', 'Libur Nasional/Cuti', 'Masalah Teknis/Perangkat'],
+                    datasets: [{ label: 'Jumlah Kasus', data: [52, 48, 12, 11, 11, 10, 8, 7, 4], backgroundColor: 'rgba(59, 130, 246, 0.7)', borderColor: 'rgba(59, 130, 246, 1)', borderWidth: 1, borderRadius: 4 }]
+                },
+                options: defaultChartOptions
+            });
+            
+            const timingCtxSAA = document.getElementById('timingDistributionChartSAA').getContext('2d');
+            new Chart(timingCtxSAA, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Sedang (2-7 hari)', 'Mepet (≤36 jam)', 'Jauh (>7 hari)'],
+                    datasets: [{ data: [67.68, 16.55, 15.77], backgroundColor: ['rgba(59, 130, 246, 0.8)', 'rgba(251, 191, 36, 0.8)', 'rgba(16, 185, 129, 0.8)'], borderColor: ['#fff'], borderWidth: 2 }]
+                },
+                options: defaultDoughnutOptions
+            });
+
+            // --- IA CHARTS ---
+            const reasonsCtxIA = document.getElementById('reasonsChartIA').getContext('2d');
+            new Chart(reasonsCtxIA, {
+                type: 'bar',
+                data: {
+                    labels: ['Masalah Keluarga/Pribadi', 'Pekerjaan Full Time', 'Alasan Akademik', 'Sakit/Kesehatan'],
+                    datasets: [{ label: 'Jumlah Kasus', data: [23, 17, 13, 3], backgroundColor: 'rgba(139, 92, 246, 0.7)', borderColor: 'rgba(139, 92, 246, 1)', borderWidth: 1, borderRadius: 4 }]
+                },
+                options: defaultChartOptions
+            });
+            
+            const timingCtxIA = document.getElementById('timingDistributionChartIA').getContext('2d');
+            new Chart(timingCtxIA, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Sedang (2-7 hari)', 'Jauh (>7 hari)', 'Mepet (≤36 jam)'],
+                    datasets: [{ data: [59.77, 26.92, 13.31], backgroundColor: ['rgba(139, 92, 246, 0.8)', 'rgba(16, 185, 129, 0.8)', 'rgba(251, 191, 36, 0.8)'], borderColor: ['#fff'], borderWidth: 2 }]
+                },
+                options: defaultDoughnutOptions
+            });
+
+            // --- MODAL LOGIC (Works for both dashboards) ---
+            const modal = document.getElementById('statModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalExplanation = document.getElementById('modalExplanation');
+            const statCards = document.querySelectorAll('.stat-card');
+            const closeButton = document.querySelector('.close-button');
+
+            statCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    modalTitle.textContent = card.getAttribute('data-title');
+                    modalExplanation.textContent = card.getAttribute('data-explanation');
+                    modal.style.display = 'flex';
+                });
+            });
+
+            const closeModal = () => { modal.style.display = 'none'; }
+            closeButton.addEventListener('click', closeModal);
+            window.addEventListener('click', (event) => { if (event.target == modal) closeModal(); });
+        });
+    </script>
+
+</body>
+</html>
