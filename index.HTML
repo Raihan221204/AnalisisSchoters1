@@ -6,6 +6,7 @@
     <title>Dashboard Analisis Pembatalan Sesi</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -107,6 +108,9 @@
 
         <!-- SAA Dashboard Content -->
         <div id="dashboard-saa">
+            <div class="mb-6 text-sm text-gray-500 bg-blue-50 border border-blue-200 rounded-lg p-3 inline-block">
+                Data diambil dari periode: <span class="font-semibold">2024-01-01 15:00</span> s/d <span class="font-semibold">2025-10-02 17:00</span>
+            </div>
             <!-- Main Metrics Section -->
             <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div class="kpi-card bg-white p-6 rounded-xl border border-gray-200">
@@ -114,7 +118,7 @@
                         <div class="p-3 rounded-full bg-blue-100 text-blue-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg></div>
                         <div class="ml-4">
                             <p class="text-sm font-medium text-gray-500">Total Pembatalan</p>
-                            <p class="text-2xl font-bold">2,466</p>
+                            <p class="text-2xl font-bold">1,427</p>
                         </div>
                     </div>
                 </div>
@@ -123,10 +127,10 @@
                         <div class="p-3 rounded-full bg-green-100 text-green-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
                         <div class="ml-4">
                             <p class="text-sm font-medium text-gray-500">Bukan Pelanggaran (HB)</p>
-                            <p class="text-2xl font-bold">2,466</p>
+                            <p class="text-2xl font-bold">1,427</p>
                         </div>
                     </div>
-                    <p class="text-xs text-gray-400 mt-2">Berdasarkan aturan H-1 (&gt;= 24 jam).</p>
+                    <p class="text-xs text-gray-400 mt-2">Jumlah cancel mepet (&lt;24 jam): 0</p>
                 </div>
             </section>
 
@@ -145,28 +149,28 @@
                         <div class="divide-y divide-gray-200">
                             <div class="grid grid-cols-3 gap-4 p-4 items-center">
                                 <div><span class="font-semibold">&lt;= 24.5 jam</span></div>
-                                <div class="text-right font-bold text-lg text-gray-800">41</div>
-                                <div class="text-right font-bold text-lg text-gray-800">2,425</div>
+                                <div class="text-right font-bold text-lg text-gray-800">21</div>
+                                <div class="text-right font-bold text-lg text-gray-800">1,406</div>
                             </div>
                             <div class="grid grid-cols-3 gap-4 p-4 items-center bg-gray-50/50 rounded-lg">
                                 <div><span class="font-semibold">&lt;= 25 jam</span></div>
-                                <div class="text-right font-bold text-lg text-gray-800">68</div>
-                                <div class="text-right font-bold text-lg text-gray-800">2,398</div>
+                                <div class="text-right font-bold text-lg text-gray-800">37</div>
+                                <div class="text-right font-bold text-lg text-gray-800">1,390</div>
                             </div>
                              <div class="grid grid-cols-3 gap-4 p-4 items-center">
                                 <div><span class="font-semibold">&lt;= 26 jam</span></div>
-                                <div class="text-right font-bold text-lg text-gray-800">131</div>
-                                <div class="text-right font-bold text-lg text-gray-800">2,335</div>
+                                <div class="text-right font-bold text-lg text-gray-800">67</div>
+                                <div class="text-right font-bold text-lg text-gray-800">1,360</div>
                             </div>
                             <div class="grid grid-cols-3 gap-4 p-4 items-center bg-gray-50/50 rounded-lg">
                                 <div><span class="font-semibold">&lt;= 27 jam</span></div>
-                                <div class="text-right font-bold text-lg text-gray-800">172</div>
-                                <div class="text-right font-bold text-lg text-gray-800">2,294</div>
+                                <div class="text-right font-bold text-lg text-gray-800">86</div>
+                                <div class="text-right font-bold text-lg text-gray-800">1,341</div>
                             </div>
                              <div class="grid grid-cols-3 gap-4 p-4 items-center">
                                 <div><span class="font-semibold">&lt;= 36 jam</span></div>
-                                <div class="text-right font-bold text-lg text-gray-800">408</div>
-                                <div class="text-right font-bold text-lg text-gray-800">2,058</div>
+                                <div class="text-right font-bold text-lg text-gray-800">217</div>
+                                <div class="text-right font-bold text-lg text-gray-800">1,210</div>
                             </div>
                         </div>
                     </div>
@@ -188,108 +192,140 @@
                     </div>
                 </div>
             </section>
-            <!-- Reason Details Section -->
+             <!-- Reason Details Section -->
             <section class="mb-8">
                  <div class="bg-white p-6 rounded-xl border border-gray-200">
                     <h2 class="text-lg font-semibold mb-4">Contoh Rincian Alasan Pembatalan</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         <div class="bg-gray-50 p-4 rounded-lg border">
-                            <h3 class="font-semibold text-gray-800">Pekerjaan Full Time <span class="font-normal text-gray-500">(52)</span></h3>
+                            <h3 class="font-semibold text-gray-800">Lain-lain <span class="font-normal text-gray-500">(538)</span></h3>
                             <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
-                                <li>"Mendadak ada tugas perjalanan dinas keluar kota"</li>
-                                <li>"I will be assigned to outside Jakarta this week"</li>
-                                <li>"Meeting kantor"</li>
+                                <li>"Halo, tolong diganti ke Sabtu pagi pukul 10.00-11.00 yaa, terima kasih."</li>
+                                <li>"Close jadwal untuk jam 4 sore atau malam ya, thank you!"</li>
                             </ul>
                         </div>
                         <div class="bg-gray-50 p-4 rounded-lg border">
-                            <h3 class="font-semibold text-gray-800">Sakit/Kesehatan <span class="font-normal text-gray-500">(12)</span></h3>
+                            <h3 class="font-semibold text-gray-800">Pekerjaan Full Time <span class="font-normal text-gray-500">(203)</span></h3>
                             <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
-                                <li>"sedang sakit tenggorokan"</li>
-                                <li>"Mentor sedang sakit"</li>
-                                <li>"I have a flu and fever since this morning"</li>
+                                <li>"Sorry banget cancel sesi ini karena ada agenda kantor kamis malem."</li>
+                                <li>"Meeting kantor i have to attend a conference."</li>
                             </ul>
                         </div>
                         <div class="bg-gray-50 p-4 rounded-lg border">
-                            <h3 class="font-semibold text-gray-800">Pergantian Mentor <span class="font-normal text-gray-500">(11)</span></h3>
+                            <h3 class="font-semibold text-gray-800">Perubahan Jadwal Mentor <span class="font-normal text-gray-500">(133)</span></h3>
                             <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
-                                <li>"Student belum memilih mentor dedicated"</li>
-                                <li>"Mohon untuk booking sesi kembali setelah mendapatkan mentor..."</li>
-                                <li>"Peninjauan kembali oleh mentor dan tim Schoters..."</li>
+                                <li>"tabrakan schedule denngan sesi SAA di jam 19.00."</li>
+                                <li>"Please re-schedule your session to other available time slot."</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Alasan Akademik <span class="font-normal text-gray-500">(131)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"I apologize that I have to cancel this session because I have an appointment with local gov."</li>
+                                <li>"maaf ya aku izin cancel sesi ini karena belum bisa bimbingan siang hari."</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Keluarga/Pribadi <span class="font-normal text-gray-500">(100)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"Family reason,Hi kak Maria, Mohon maaf ternyata saya ada akan keperluan keluarga..."</li>
+                                <li>"Salam, Harlino"</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Perjalanan Dinas <span class="font-normal text-gray-500">(85)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"Dear Student, Pardon that I will have to take a business trip..."</li>
+                                <li>"Hi Zafira, I am sorry but I won't be available... because of emergency work trip."</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Sakit/Kesehatan <span class="font-normal text-gray-500">(69)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"Hi Akbar, Sorry to cancel yah. I've been sick past few days..."</li>
+                                <li>"Mentor ada keperluan medis (check-up dokter pasca opname)..."</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Pergantian Mentor <span class="font-normal text-gray-500">(60)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"Halo! Mohon untuk booking sesi kembali setelah mendapatkan mentor dedicated."</li>
+                                <li>"Silahkan kakak cek email dan memilih Mentor Dedicated..."</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Libur Nasional/Cuti <span class="font-normal text-gray-500">(56)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"Halo Tito. Sehubungan dengan libur Schoters tanggal 28 Maret - 7 April..."</li>
+                                <li>"Hi Joan, I am sorry aku lupa tanggal 29 juga tanggal merah..."</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Kesalahan Sistem <span class="font-normal text-gray-500">(13)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"I truly apologise that I mistakenly made that time slot available on the system."</li>
+                                <li>"Halo Sophie, silahkan booking sesi kembali setelah di-assign ke mentor..."</li>
                             </ul>
                         </div>
                         <div class="bg-gray-50 p-4 rounded-lg border">
                             <h3 class="font-semibold text-gray-800">Kesalahan Tutor <span class="font-normal text-gray-500">(10)</span></h3>
-                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
-                                <li>"maaf aku lupa untuk untuk menutup sesi di jumat ini"</li>
-                                <li>"kakak lupa tutup jadwal di hari Sabtu ini..."</li>
-                                <li>"...maaf banget jam availabilityku yang di hari minggu ini telat diupdate."</li>
+                             <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"Hi, maaf aku lupa untuk untuk menutup sesi di jumat ini..."</li>
+                                <li>"Mohon maaf Araaf, kakak lupa tutup jadwal di hari Sabtu ini..."</li>
                             </ul>
                         </div>
                         <div class="bg-gray-50 p-4 rounded-lg border">
-                            <h3 class="font-semibold text-gray-800">Kesalahan Sistem <span class="font-normal text-gray-500">(10)</span></h3>
+                            <h3 class="font-semibold text-gray-800">Administrasi/Kebijakan <span class="font-normal text-gray-500">(6)</span></h3>
                              <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
-                                <li>"tabrakan schedule denngan sesi SAA di jam 19:00."</li>
-                                <li>"...karena ada error jadwal, sehingga ke double"</li>
-                                <li>"saya tidak available untuk jam segini, ada error di system CMS"</li>
+                                <li>"Peninjauan kembali oleh mentor dan tim Schoters..."</li>
+                                <li>"Student harap menunggu arahan lebih lanjut dari tim Schoters."</li>
                             </ul>
                         </div>
                          <div class="bg-gray-50 p-4 rounded-lg border">
-                            <h3 class="font-semibold text-gray-800">Alasan Akademik <span class="font-normal text-gray-500">(10)</span></h3>
-                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
-                                <li>"Mentor ada jadwal ujian tanggal 6 Februari"</li>
-                                <li>"supervisor PhD tiba2 mengajukan meeting..."</li>
-                                <li>"ada praktikum experiment yang harus dilakukan"</li>
-                            </ul>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg border">
-                            <h3 class="font-semibold text-gray-800">Keluarga/Pribadi <span class="font-normal text-gray-500">(10)</span></h3>
-                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
-                                <li>"Family reason"</li>
-                                <li>"acara rangkaian persiapan pernikahan"</li>
-                                <li>"Babysitter in my house is on leave..."</li>
-                            </ul>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg border">
-                            <h3 class="font-semibold text-gray-800">Libur Nasional/Cuti <span class="font-normal text-gray-500">(7)</span></h3>
-                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
-                                <li>"Libur Maulid Nabi"</li>
-                                <li>"National holiday."</li>
-                                <li>"Libur pemilu."</li>
-                            </ul>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg border">
-                            <h3 class="font-semibold text-gray-800">Lain-lain <span class="font-normal text-gray-500">(5)</span></h3>
-                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
-                                <li>"Other issue"</li>
-                                <li>"Changed to another time."</li>
-                                <li>"pagi ini masih travelling jadi gak tentu sinyalnya bagus."</li>
+                            <h3 class="font-semibold text-gray-800">Tutor Resign <span class="font-normal text-gray-500">(6)</span></h3>
+                             <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"Already resign per 1 Maret 2024."</li>
+                                <li>"Mohon ditunggu untuk proses transisi ke mentor yang baru"</li>
                             </ul>
                         </div>
                         <div class="bg-gray-50 p-4 rounded-lg border">
                             <h3 class="font-semibold text-gray-800">Masalah Teknis/Perangkat <span class="font-normal text-gray-500">(4)</span></h3>
                              <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
-                                <li>"Laptop rusak"</li>
-                                <li>"takut nya pesawat nya delay."</li>
-                                <li>"pagi ini masih travelling jadi gak tentu sinyalnya bagus."</li>
+                                <li>"Harritsa, I am sorry to cancel this session. There will be big typhoon..."</li>
+                                <li>"I will be out of town and have limited access to internet."</li>
                             </ul>
                         </div>
-                        <div class="bg-gray-50 p-4 rounded-lg border">
-                            <h3 class="font-semibold text-gray-800">Kesepakatan dgn Student <span class="font-normal text-gray-500">(3)</span></h3>
+                         <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Kesepakatan dgn Student <span class="font-normal text-gray-500">(2)</span></h3>
                              <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
-                                <li>"re-schedule, sudah janjian dengan student"</li>
-                                <li>"bimbingan sudah dilakukan pada hari Jumat..."</li>
-                                <li>"Sesuai kesepakatan dengan student..."</li>
-                            </ul>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg border">
-                            <h3 class="font-semibold text-gray-800">Perubahan Jadwal Mentor <span class="font-normal text-gray-500">(1)</span></h3>
-                             <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
-                                <li>"Ada revisi jam ketersediaan mentor karena bertabrakan..."</li>
+                                <li>"Sudah sepakat dengan student bahwa jadwal akan dipindah ke waktu pagi."</li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </section>
+            
+            <!-- Tutor Cancel Trend -->
+            <section class="mb-8">
+                <div class="bg-white p-6 rounded-xl border border-gray-200">
+                    <h2 class="text-lg font-semibold mb-4">Tren Pembatalan Tutor per Bulan (2024-2025)</h2>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div>
+                            <h3 class="font-medium text-center text-gray-600 mb-2">Jumlah Mentor dgn >3 Cancel</h3>
+                            <div class="chart-container" style="height: 300px;"><canvas id="mentorOver3CancelsChart"></canvas></div>
+                        </div>
+                        <div>
+                            <h3 class="font-medium text-center text-gray-600 mb-2">Rata-rata Cancel per Mentor</h3>
+                            <div class="chart-container" style="height: 300px;"><canvas id="avgCancelsChart"></canvas></div>
+                        </div>
+                        <div>
+                            <h3 class="font-medium text-center text-gray-600 mb-2">Maksimum Cancel per Mentor</h3>
+                            <div class="chart-container" style="height: 300px;"><canvas id="maxCancelsChart"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Statistics Section -->
             <section>
                 <div class="bg-white p-6 rounded-xl border border-gray-200">
@@ -299,13 +335,13 @@
                         Klik pada setiap kotak untuk melihat penjelasan detail
                     </div>
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
-                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Mean (Rata-rata)" data-explanation="Rata-rata mentor/student melakukan cancel sekitar 4–5 hari (106.9 jam) sebelum sesi."><p class="text-sm text-gray-500">Mean</p><p class="text-xl font-bold">106.86</p></div>
-                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Standard Deviation" data-explanation="Variasi waktu pembatalan sangat tinggi (100.9 jam), menunjukkan ada yang cancel sangat mepet dan ada yang jauh-jauh hari."><p class="text-sm text-gray-500">Std Dev</p><p class="text-xl font-bold">100.92</p></div>
-                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Minimum" data-explanation="Cancel paling dekat dilakukan hanya 24.01 jam sebelum sesi. Ini persis di batas aman dan tidak dihitung pelanggaran (karena HB menyatakan <24 jam baru pelanggaran)."><p class="text-sm text-gray-500">Min</p><p class="text-xl font-bold">24.01</p></div>
-                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Modus" data-explanation="Nilai yang paling sering muncul adalah 26.0 jam, sebanyak 57 kali."><p class="text-sm text-gray-500">Modus</p><p class="text-xl font-bold">26.0</p></div>
-                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Kuartil 1 (25%)" data-explanation="Sebanyak 25% dari pembatalan dilakukan kurang dari atau sama dengan 2 hari (48.24 jam) sebelum sesi."><p class="text-sm text-gray-500">25% (Q1)</p><p class="text-xl font-bold">48.24</p></div>
-                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Median (50%)" data-explanation="Setengah dari total pembatalan (50%) dilakukan lebih dari atau sama dengan 3.1 hari (74.49 jam) sebelum sesi."><p class="text-sm text-gray-500">50% (Median)</p><p class="text-xl font-bold">74.49</p></div>
-                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Kuartil 3 (75%)" data-explanation="Sebanyak 75% dari pembatalan dilakukan kurang dari atau sama dengan 5.3 hari (128.71 jam) sebelum sesi."><p class="text-sm text-gray-500">75% (Q3)</p><p class="text-xl font-bold">128.71</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Mean (Rata-rata)" data-explanation="Rata-rata mentor/student melakukan cancel sekitar 4–5 hari (109.3 jam) sebelum sesi."><p class="text-sm text-gray-500">Mean</p><p class="text-xl font-bold">109.34</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Standard Deviation" data-explanation="Variasi waktu pembatalan sangat tinggi (105.6 jam)."><p class="text-sm text-gray-500">Std Dev</p><p class="text-xl font-bold">105.62</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Minimum" data-explanation="Cancel paling dekat dilakukan hanya 24.01 jam sebelum sesi."><p class="text-sm text-gray-500">Min</p><p class="text-xl font-bold">24.01</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Modus" data-explanation="Nilai yang paling sering muncul adalah 25.0 jam, sebanyak 28 kali."><p class="text-sm text-gray-500">Modus</p><p class="text-xl font-bold">25.0</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Kuartil 1 (25%)" data-explanation="25% dari pembatalan dilakukan ≤ 2 hari (49.06 jam) sebelum sesi."><p class="text-sm text-gray-500">25% (Q1)</p><p class="text-xl font-bold">49.06</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Median (50%)" data-explanation="Setengah dari pembatalan dilakukan ≥ 3.2 hari (76.31 jam) sebelum sesi."><p class="text-sm text-gray-500">50% (Median)</p><p class="text-xl font-bold">76.31</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Kuartil 3 (75%)" data-explanation="75% dari pembatalan dilakukan ≤ 5.4 hari (128.75 jam) sebelum sesi."><p class="text-sm text-gray-500">75% (Q3)</p><p class="text-xl font-bold">128.75</p></div>
                         <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Maximum" data-explanation="Cancel paling jauh dilakukan sekitar 2 bulan (1494 jam atau ≈ 62 hari) sebelum sesi."><p class="text-sm text-gray-500">Max</p><p class="text-xl font-bold">1494.05</p></div>
                     </div>
                 </div>
@@ -314,14 +350,17 @@
 
         <!-- IA Dashboard Content (Hidden by default) -->
         <div id="dashboard-ia" style="display: none;">
+            <div class="mb-6 text-sm text-gray-500 bg-purple-50 border border-purple-200 rounded-lg p-3 inline-block">
+                Data diambil dari periode: <span class="font-semibold">2024-01-01 10:00</span> s/d <span class="font-semibold">2025-10-18 16:00</span>
+            </div>
              <!-- Main Metrics Section -->
             <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div class="kpi-card bg-white p-6 rounded-xl border border-gray-200">
                     <div class="flex items-center">
-                        <div class="p-3 rounded-full bg-blue-100 text-blue-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg></div>
+                        <div class="p-3 rounded-full bg-purple-100 text-purple-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg></div>
                         <div class="ml-4">
                             <p class="text-sm font-medium text-gray-500">Total Pembatalan</p>
-                            <p class="text-2xl font-bold">4,347</p>
+                            <p class="text-2xl font-bold">2,725</p>
                         </div>
                     </div>
                 </div>
@@ -330,10 +369,10 @@
                         <div class="p-3 rounded-full bg-green-100 text-green-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
                         <div class="ml-4">
                             <p class="text-sm font-medium text-gray-500">Bukan Pelanggaran (HB)</p>
-                            <p class="text-2xl font-bold">4,347</p>
+                            <p class="text-2xl font-bold">2,725</p>
                         </div>
                     </div>
-                    <p class="text-xs text-gray-400 mt-2">Berdasarkan aturan H-1 (&gt;= 24 jam).</p>
+                    <p class="text-xs text-gray-400 mt-2">Jumlah cancel mepet (&lt;24 jam): 0</p>
                 </div>
             </section>
             
@@ -352,28 +391,28 @@
                         <div class="divide-y divide-gray-200">
                             <div class="grid grid-cols-3 gap-4 p-4 items-center">
                                 <div><span class="font-semibold">&lt;= 24.5 jam</span></div>
-                                <div class="text-right font-bold text-lg text-gray-800">59</div>
-                                <div class="text-right font-bold text-lg text-gray-800">4,288</div>
+                                <div class="text-right font-bold text-lg text-gray-800">28</div>
+                                <div class="text-right font-bold text-lg text-gray-800">2,697</div>
                             </div>
                             <div class="grid grid-cols-3 gap-4 p-4 items-center bg-gray-50/50 rounded-lg">
                                 <div><span class="font-semibold">&lt;= 25 jam</span></div>
-                                <div class="text-right font-bold text-lg text-gray-800">103</div>
-                                <div class="text-right font-bold text-lg text-gray-800">4,244</div>
+                                <div class="text-right font-bold text-lg text-gray-800">49</div>
+                                <div class="text-right font-bold text-lg text-gray-800">2,676</div>
                             </div>
                              <div class="grid grid-cols-3 gap-4 p-4 items-center">
                                 <div><span class="font-semibold">&lt;= 26 jam</span></div>
-                                <div class="text-right font-bold text-lg text-gray-800">183</div>
-                                <div class="text-right font-bold text-lg text-gray-800">4,164</div>
+                                <div class="text-right font-bold text-lg text-gray-800">91</div>
+                                <div class="text-right font-bold text-lg text-gray-800">2,634</div>
                             </div>
                             <div class="grid grid-cols-3 gap-4 p-4 items-center bg-gray-50/50 rounded-lg">
                                 <div><span class="font-semibold">&lt;= 27 jam</span></div>
-                                <div class="text-right font-bold text-lg text-gray-800">255</div>
-                                <div class="text-right font-bold text-lg text-gray-800">4,092</div>
+                                <div class="text-right font-bold text-lg text-gray-800">125</div>
+                                <div class="text-right font-bold text-lg text-gray-800">2,600</div>
                             </div>
                              <div class="grid grid-cols-3 gap-4 p-4 items-center">
                                 <div><span class="font-semibold">&lt;= 36 jam</span></div>
-                                <div class="text-right font-bold text-lg text-gray-800">579</div>
-                                <div class="text-right font-bold text-lg text-gray-800">3,768</div>
+                                <div class="text-right font-bold text-lg text-gray-800">296</div>
+                                <div class="text-right font-bold text-lg text-gray-800">2,429</div>
                             </div>
                         </div>
                     </div>
@@ -390,7 +429,7 @@
                     <h2 class="text-lg font-semibold mb-4">Distribusi Waktu Pembatalan</h2>
                     <div class="chart-container flex-grow" style="height: 300px;"><canvas id="timingDistributionChartIA"></canvas></div>
                     <div class="mt-4 text-xs text-gray-500">
-                        <p><span class="font-semibold">Paling Jauh:</span> 2810.57 jam (~117.1 hari)</p>
+                        <p><span class="font-semibold">Paling Jauh:</span> 860.25 jam (~35.8 hari)</p>
                         <p><span class="font-semibold">Paling Dekat:</span> 24.01 jam (~1.0 hari)</p>
                     </div>
                 </div>
@@ -399,42 +438,116 @@
             <section class="mb-8">
                  <div class="bg-white p-6 rounded-xl border border-gray-200">
                     <h2 class="text-lg font-semibold mb-4">Contoh Rincian Alasan Pembatalan</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Lain-lain <span class="font-normal text-gray-500">(1196)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"Accidentally made the timeslot open. Apologies for the inconveniences..."</li>
+                                <li>"Tutor ada agenda lain yang harus dihadiri."</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Perubahan Jadwal Mentor <span class="font-normal text-gray-500">(545)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"Reschedule,reschedule,maaf ya, saya ada workshop offline..."</li>
+                                <li>"Reschedule yaa"</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Alasan Akademik <span class="font-normal text-gray-500">(247)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"tolong reschedule ya.. maaf mendadak, ternyata weekend ini ada seminar offline..."</li>
+                                <li>"...independent study dulu yaa, see you next time."</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Keluarga/Pribadi <span class="font-normal text-gray-500">(237)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"sorry have to cancel due to family occasions."</li>
+                                <li>"...the next day (29 sept) is available right now if you wanna resched."</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Pekerjaan Full Time <span class="font-normal text-gray-500">(164)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"I'm really sorry that I need to cancel our class. I need to attend an important meeting..."</li>
+                                <li>"I have overtime work scheduled at the office"</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Perjalanan/Dinas <span class="font-normal text-gray-500">(133)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"Kunjungan ke luar kota reschedule yaa.. saya ada workshop ke luar kota hari minggu."</li>
+                                <li>"so sorry reschedule yaa.. saya ada workshop ke luar kota hari minggu.. so sorry"</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Libur Nasional/Cuti <span class="font-normal text-gray-500">(104)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"tanggal merah,hello.. due to the national holiday for the election day..."</li>
+                                <li>"tolong reschedule ya.. saya cuti 18-21, terima kasihh n see u!"</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Sakit/Kesehatan <span class="font-normal text-gray-500">(62)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"Maaf kak, tutor sakit dan suara habis jadi belum bisa mengajar."</li>
+                                <li>"I'll need to cancel this class as I'm taking my son to the hospital for surgery."</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Masalah Teknis/Perangkat <span class="font-normal text-gray-500">(12)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"There's a Typhoon in Japan and my area is predicted to be hit..."</li>
+                                <li>"Tutor is on a personal trip by ship. No stable internet might be available."</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Kesalahan Sistem <span class="font-normal text-gray-500">(11)</span></h3>
+                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"Cash with other session,reschedule ya.. kemarin ada eror di system"</li>
+                                <li>"...the system seemed error and this deleted availability appeared to students for a book"</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <h3 class="font-semibold text-gray-800">Kesalahan Tutor <span class="font-normal text-gray-500">(7)</span></h3>
+                             <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"mohon maaf ada jadwal sebelumnya saya lupa hapus di scms."</li>
+                                <li>"tutor berhalangan di tgl tersebut (tutor lupa update jadwal)."</li>
+                            </ul>
+                        </div>
                          <div class="bg-gray-50 p-4 rounded-lg border">
-                            <h3 class="font-semibold text-gray-800">Masalah Keluarga/Pribadi <span class="font-normal text-gray-500">(23)</span></h3>
-                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
-                                <li>"sorry have to cancel due to family occasions"</li>
-                                <li>"Family matter"</li>
-                                <li>"sorry kak, I have urgent matter this day"</li>
-                            </ul>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg border">
-                            <h3 class="font-semibold text-gray-800">Pekerjaan Full Time <span class="font-normal text-gray-500">(17)</span></h3>
-                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
-                                <li>"...I have been assigned to take care of a big event..."</li>
-                                <li>"ada urgent meeting"</li>
-                                <li>"saya ada workshop offline dengan Schoters..."</li>
-                            </ul>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg border">
-                            <h3 class="font-semibold text-gray-800">Alasan Akademik <span class="font-normal text-gray-500">(13)</span></h3>
-                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
-                                <li>"I need to attend an important meeting with my professors"</li>
-                                <li>"I have a sudden class at this time..."</li>
-                                <li>"student ada interview kampus"</li>
-                            </ul>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg border">
-                            <h3 class="font-semibold text-gray-800">Sakit/Kesehatan <span class="font-normal text-gray-500">(3)</span></h3>
-                            <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
-                                <li>"Tutor masih recovery sakit"</li>
-                                <li>"Tutor is currently sick and needs 3-4 days of recovery"</li>
-                                <li>"reschedule ya.. saya lagi kurang enak badan"</li>
+                            <h3 class="font-semibold text-gray-800">Kesepakatan dgn Student <span class="font-normal text-gray-500">(7)</span></h3>
+                             <ul class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                <li>"Student request cancel krn ada kegiatan pribadi."</li>
+                                <li>"Student request"</li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </section>
+            
+            <!-- Tutor Cancel Trend -->
+            <section class="mb-8">
+                <div class="bg-white p-6 rounded-xl border border-gray-200">
+                    <h2 class="text-lg font-semibold mb-4">Tren Pembatalan Tutor per Bulan (2024-2025)</h2>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div>
+                            <h3 class="font-medium text-center text-gray-600 mb-2">Jumlah Mentor dgn >3 Cancel</h3>
+                            <div class="chart-container" style="height: 300px;"><canvas id="mentorOver3CancelsChartIA"></canvas></div>
+                        </div>
+                        <div>
+                            <h3 class="font-medium text-center text-gray-600 mb-2">Rata-rata Cancel per Mentor</h3>
+                            <div class="chart-container" style="height: 300px;"><canvas id="avgCancelsChartIA"></canvas></div>
+                        </div>
+                        <div>
+                            <h3 class="font-medium text-center text-gray-600 mb-2">Maksimum Cancel per Mentor</h3>
+                            <div class="chart-container" style="height: 300px;"><canvas id="maxCancelsChartIA"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Statistics Section -->
             <section>
                 <div class="bg-white p-6 rounded-xl border border-gray-200">
@@ -444,14 +557,14 @@
                         Klik pada setiap kotak untuk melihat penjelasan detail
                     </div>
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
-                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Mean (Rata-rata)" data-explanation="Rata-rata mentor/student melakukan cancel sekitar 6-7 hari (162.27 jam) sebelum sesi."><p class="text-sm text-gray-500">Mean</p><p class="text-xl font-bold">162.27</p></div>
-                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Standard Deviation" data-explanation="Variasi waktu pembatalan sangat tinggi (232.62 jam), menunjukkan ada yang cancel sangat mepet dan ada yang jauh-jauh hari."><p class="text-sm text-gray-500">Std Dev</p><p class="text-xl font-bold">232.62</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Mean (Rata-rata)" data-explanation="Rata-rata mentor/student melakukan cancel sekitar 6 hari (144.8 jam) sebelum sesi."><p class="text-sm text-gray-500">Mean</p><p class="text-xl font-bold">144.81</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Standard Deviation" data-explanation="Variasi waktu pembatalan tinggi (136.16 jam)."><p class="text-sm text-gray-500">Std Dev</p><p class="text-xl font-bold">136.16</p></div>
                         <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Minimum" data-explanation="Cancel paling dekat dilakukan hanya 24.01 jam sebelum sesi, persis di batas aman."><p class="text-sm text-gray-500">Min</p><p class="text-xl font-bold">24.01</p></div>
-                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Modus" data-explanation="Nilai yang paling sering muncul adalah 25.0 jam, sebanyak 89 kali."><p class="text-sm text-gray-500">Modus</p><p class="text-xl font-bold">25.0</p></div>
-                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Kuartil 1 (25%)" data-explanation="25% dari pembatalan dilakukan ≤ 2 hari (49.70 jam) sebelum sesi."><p class="text-sm text-gray-500">25% (Q1)</p><p class="text-xl font-bold">49.70</p></div>
-                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Median (50%)" data-explanation="Setengah dari pembatalan dilakukan ≥ 3.8 hari (92.81 jam) sebelum sesi."><p class="text-sm text-gray-500">50% (Median)</p><p class="text-xl font-bold">92.82</p></div>
-                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Kuartil 3 (75%)" data-explanation="75% dari pembatalan dilakukan ≤ 7.3 hari (174.81 jam) sebelum sesi."><p class="text-sm text-gray-500">75% (Q3)</p><p class="text-xl font-bold">174.82</p></div>
-                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Maximum" data-explanation="Cancel paling jauh dilakukan sekitar 3.9 bulan (2810.57 jam atau ≈ 117 hari) sebelum sesi."><p class="text-sm text-gray-500">Max</p><p class="text-xl font-bold">2810.57</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Modus" data-explanation="Nilai yang paling sering muncul adalah 48.0 jam, sebanyak 44 kali."><p class="text-sm text-gray-500">Modus</p><p class="text-xl font-bold">48.0</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Kuartil 1 (25%)" data-explanation="25% dari pembatalan dilakukan ≤ 2.2 hari (53.35 jam) sebelum sesi."><p class="text-sm text-gray-500">25% (Q1)</p><p class="text-xl font-bold">53.35</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Median (50%)" data-explanation="Setengah dari pembatalan dilakukan ≥ 4 hari (96.34 jam) sebelum sesi."><p class="text-sm text-gray-500">50% (Median)</p><p class="text-xl font-bold">96.34</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Kuartil 3 (75%)" data-explanation="75% dari pembatalan dilakukan ≤ 7.3 hari (176.20 jam) sebelum sesi."><p class="text-sm text-gray-500">75% (Q3)</p><p class="text-xl font-bold">176.20</p></div>
+                        <div class="stat-card bg-gray-100 p-4 rounded-lg" data-title="Maximum" data-explanation="Cancel paling jauh dilakukan sekitar 1.2 bulan (860.25 jam atau ≈ 35.8 hari) sebelum sesi."><p class="text-sm text-gray-500">Max</p><p class="text-xl font-bold">860.25</p></div>
                     </div>
                 </div>
             </section>
@@ -495,7 +608,18 @@
             });
 
             // --- CHART DEFAULTS ---
-            const defaultChartOptions = {
+            const defaultBarOptions = {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                    },
+                    scales: {
+                        x: { beginAtZero: true, grid: { display: false }, ticks: { color: '#4B5563' } },
+                        y: { grid: { display: true, color: 'rgba(229, 231, 235, 1)' }, ticks: { color: '#4B5563' } }
+                    }
+            };
+             const defaultHorizontalBarOptions = {
                  indexAxis: 'y',
                     responsive: true,
                     maintainAspectRatio: false,
@@ -505,7 +629,7 @@
                     },
                     scales: {
                         x: { beginAtZero: true, grid: { display: true, color: 'rgba(229, 231, 235, 1)' }, ticks: { color: '#4B5563' } },
-                        y: { grid: { display: false }, ticks: { color: '#4B5563' } }
+                        y: { grid: { display: false }, ticks: { color: '#4B5563', font: {size: 10} } }
                     }
             };
             const defaultDoughnutOptions = {
@@ -527,31 +651,65 @@
             new Chart(reasonsCtxSAA, {
                 type: 'bar',
                 data: {
-                    labels: ['Pekerjaan Full Time', 'Sakit/Kesehatan', 'Pergantian Mentor', 'Kesalahan Tutor', 'Kesalahan Sistem', 'Alasan Akademik', 'Keluarga/Pribadi', 'Libur Nasional/Cuti', 'Lain-lain', 'Masalah Teknis/Perangkat', 'Kesepakatan dgn Student', 'Perubahan Jadwal Mentor'],
-                    datasets: [{ label: 'Jumlah Kasus', data: [52, 12, 11, 10, 10, 10, 10, 7, 5, 4, 3, 1], backgroundColor: 'rgba(59, 130, 246, 0.7)', borderColor: 'rgba(59, 130, 246, 1)', borderWidth: 1, borderRadius: 4 }]
+                    labels: ['Lain-lain', 'Pekerjaan Full Time', 'Perubahan Jadwal', 'Alasan Akademik', 'Keluarga/Pribadi', 'Perjalanan Dinas', 'Sakit/Kesehatan', 'Pergantian Mentor', 'Libur Nasional/Cuti', 'Kesalahan Sistem', 'Kesalahan Tutor', 'Administrasi/Kebijakan', 'Tutor Resign', 'Masalah Teknis', 'Kesepakatan Student'],
+                    datasets: [{ label: 'Jumlah Kasus', data: [538, 203, 133, 131, 100, 85, 69, 60, 56, 13, 10, 6, 6, 4, 2], backgroundColor: 'rgba(59, 130, 246, 0.7)', borderColor: 'rgba(59, 130, 246, 1)', borderWidth: 1, borderRadius: 4 }]
                 },
-                options: defaultChartOptions
+                options: defaultHorizontalBarOptions
             });
             
             const timingCtxSAA = document.getElementById('timingDistributionChartSAA').getContext('2d');
             new Chart(timingCtxSAA, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Sedang (2-7 hari)', 'Mepet (≤36 jam)', 'Jauh (>7 hari)', 'Agak mepet (36-48 jam)'],
-                    datasets: [{ data: [59.81, 16.55, 15.77, 7.87], backgroundColor: ['rgba(59, 130, 246, 0.8)', 'rgba(251, 191, 36, 0.8)', 'rgba(16, 185, 129, 0.8)', 'rgba(239, 68, 68, 0.8)'], borderColor: ['#fff'], borderWidth: 2 }]
+                    labels: ['Sedang (2-7 hari)', 'Jauh (>7 hari)', 'Mepet (≤36 jam)', 'Agak mepet (36-48 jam)'],
+                    datasets: [{ data: [60.83, 16.33, 15.21, 7.64], backgroundColor: ['rgba(59, 130, 246, 0.8)', 'rgba(16, 185, 129, 0.8)', 'rgba(251, 191, 36, 0.8)', 'rgba(239, 68, 68, 0.8)'], borderColor: ['#fff'], borderWidth: 2 }]
                 },
                 options: defaultDoughnutOptions
             });
+
+            // --- SAA Trend Charts ---
+            const trendLabelsSAA = ['2024-01', '2024-02', '2024-03', '2024-04', '2024-05', '2024-06', '2024-07', '2024-08', '2024-09', '2024-10', '2024-11', '2024-12', '2025-01', '2025-02', '2025-03', '2025-04', '2025-05', '2025-06', '2025-07', '2025-08', '2025-09'];
+            
+            const mentorOver3Ctx = document.getElementById('mentorOver3CancelsChart').getContext('2d');
+            new Chart(mentorOver3Ctx, {
+                type: 'bar',
+                data: {
+                    labels: trendLabelsSAA,
+                    datasets: [{ label: 'Jumlah Mentor', data: [11, 5, 3, 3, 5, 5, 7, 7, 4, 9, 7, 9, 3, 4, 1, 3, 2, 4, 5, 2, 3], backgroundColor: 'rgba(239, 68, 68, 0.7)' }]
+                },
+                options: defaultBarOptions
+            });
+
+            const avgCancelsCtx = document.getElementById('avgCancelsChart').getContext('2d');
+            new Chart(avgCancelsCtx, {
+                type: 'bar',
+                data: {
+                    labels: trendLabelsSAA,
+                    datasets: [{ label: 'Rata-rata Cancel', data: [3, 2, 2, 2, 2, 2, 3, 4, 2, 3, 3, 4, 2, 3, 2, 3, 2, 2, 3, 3, 2], backgroundColor: 'rgba(251, 191, 36, 0.7)' }]
+                },
+                options: defaultBarOptions
+            });
+
+            const maxCancelsCtx = document.getElementById('maxCancelsChart').getContext('2d');
+            new Chart(maxCancelsCtx, {
+                type: 'bar',
+                data: {
+                    labels: trendLabelsSAA,
+                    datasets: [{ label: 'Maksimum Cancel', data: [18, 17, 7, 8, 9, 6, 16, 26, 10, 11, 12, 31, 8, 7, 6, 7, 11, 6, 10, 16, 13], backgroundColor: 'rgba(16, 185, 129, 0.7)' }]
+                },
+                options: defaultBarOptions
+            });
+
 
             // --- IA CHARTS ---
             const reasonsCtxIA = document.getElementById('reasonsChartIA').getContext('2d');
             new Chart(reasonsCtxIA, {
                 type: 'bar',
                 data: {
-                    labels: ['Masalah Keluarga/Pribadi', 'Pekerjaan Full Time', 'Alasan Akademik', 'Sakit/Kesehatan'],
-                    datasets: [{ label: 'Jumlah Kasus', data: [23, 17, 13, 3], backgroundColor: 'rgba(139, 92, 246, 0.7)', borderColor: 'rgba(139, 92, 246, 1)', borderWidth: 1, borderRadius: 4 }]
+                    labels: ['Lain-lain', 'Perubahan Jadwal', 'Alasan Akademik', 'Keluarga/Pribadi', 'Pekerjaan Full Time', 'Perjalanan/Dinas', 'Libur Nasional/Cuti', 'Sakit/Kesehatan', 'Masalah Teknis', 'Kesalahan Sistem', 'Kesalahan Tutor', 'Kesepakatan Student'],
+                    datasets: [{ label: 'Jumlah Kasus', data: [1196, 545, 247, 237, 164, 133, 104, 62, 12, 11, 7, 7], backgroundColor: 'rgba(139, 92, 246, 0.7)', borderColor: 'rgba(139, 92, 246, 1)', borderWidth: 1, borderRadius: 4 }]
                 },
-                options: defaultChartOptions
+                options: defaultHorizontalBarOptions
             });
             
             const timingCtxIA = document.getElementById('timingDistributionChartIA').getContext('2d');
@@ -559,9 +717,43 @@
                 type: 'doughnut',
                 data: {
                     labels: ['Sedang (2-7 hari)', 'Jauh (>7 hari)', 'Mepet (≤36 jam)', 'Agak mepet (36-48 jam)'],
-                    datasets: [{ data: [50.63, 26.92, 13.32, 9.13], backgroundColor: ['rgba(139, 92, 246, 0.8)', 'rgba(16, 185, 129, 0.8)', 'rgba(251, 191, 36, 0.8)', 'rgba(239, 68, 68, 0.8)'], borderColor: ['#fff'], borderWidth: 2 }]
+                    datasets: [{ data: [53.06, 27.52, 10.86, 8.55], backgroundColor: ['rgba(139, 92, 246, 0.8)', 'rgba(16, 185, 129, 0.8)', 'rgba(251, 191, 36, 0.8)', 'rgba(239, 68, 68, 0.8)'], borderColor: ['#fff'], borderWidth: 2 }]
                 },
                 options: defaultDoughnutOptions
+            });
+
+            // --- IA Trend Charts ---
+            const trendLabelsIA_over3 = ['2024-01', '2024-02', '2024-03', '2024-04', '2024-05', '2024-06', '2024-07', '2024-08', '2024-09', '2024-10', '2024-11', '2024-12', '2025-01', '2025-02', '2025-03', '2025-04', '2025-05', '2025-06', '2025-07', '2025-08', '2025-09'];
+            const trendLabelsIA_avg_max = ['2023-12', '2024-01', '2024-02', '2024-03', '2024-04', '2024-05', '2024-06', '2024-07', '2024-08', '2024-09', '2024-10', '2024-11', '2024-12', '2025-01', '2025-02', '2025-03', '2025-04', '2025-05', '2025-06', '2025-07', '2025-08', '2025-09'];
+
+            const mentorOver3CtxIA = document.getElementById('mentorOver3CancelsChartIA').getContext('2d');
+            new Chart(mentorOver3CtxIA, {
+                type: 'bar',
+                data: {
+                    labels: trendLabelsIA_over3,
+                    datasets: [{ label: 'Jumlah Mentor', data: [14, 6, 9, 7, 9, 10, 6, 14, 16, 16, 13, 11, 8, 8, 6, 7, 5, 3, 10, 13, 12], backgroundColor: 'rgba(239, 68, 68, 0.7)' }]
+                },
+                options: defaultBarOptions
+            });
+
+            const avgCancelsCtxIA = document.getElementById('avgCancelsChartIA').getContext('2d');
+            new Chart(avgCancelsCtxIA, {
+                type: 'bar',
+                data: {
+                    labels: trendLabelsIA_avg_max,
+                    datasets: [{ label: 'Rata-rata Cancel', data: [2, 6, 3, 4, 3, 4, 4, 3, 9, 9, 6, 6, 5, 4, 4, 3, 3, 2, 4, 6, 5, 4], backgroundColor: 'rgba(251, 191, 36, 0.7)' }]
+                },
+                options: defaultBarOptions
+            });
+
+            const maxCancelsCtxIA = document.getElementById('maxCancelsChartIA').getContext('2d');
+            new Chart(maxCancelsCtxIA, {
+                type: 'bar',
+                data: {
+                    labels: trendLabelsIA_avg_max,
+                    datasets: [{ label: 'Maksimum Cancel', data: [3, 48, 19, 19, 12, 38, 15, 28, 102, 118, 26, 37, 40, 29, 19, 11, 9, 8, 22, 25, 21, 13], backgroundColor: 'rgba(16, 185, 129, 0.7)' }]
+                },
+                options: defaultBarOptions
             });
 
             // --- MODAL LOGIC (Works for both dashboards) ---
